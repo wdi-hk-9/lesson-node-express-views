@@ -1,11 +1,11 @@
 var Candy = require('../models/Candy');
 
-// GET
+// GET // INDEX
 function getAll(request, response) {
   Candy.find({}, function(error, candies){
     if (error) response.json({message: 'Could not find candy b/c:' + error});
 
-    response.json(candies)
+    response.render('partials/layout', {candies: candies})
   })
 }
 
@@ -16,7 +16,7 @@ function createCandy(request, response) {
   candy.save(function(error){
     if (error) response.json({message: 'problem creating candy. ' + error});
 
-    response.json({message: "candy created successfully!"})
+    response.redirect('/candies')
   })
 }
 
