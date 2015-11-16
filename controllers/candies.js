@@ -1,10 +1,30 @@
 var Candy = require('../models/Candy');
 
 // GET
+function getAll(request, response) { 
+  Candy.find(function(error, candies) {
+    if(error) response.json({message: 'Could not find any candy'});
 
+    // response.json({message: candies});
+    response.render('layout', {candies: candies});
+  });
+}
 
 // POST
+function createCandy(request, response) {
+  console.log('in POST');
+  console.log('body:',request.body);
+  var candy = new Candy();
 
+  candy.name = request.body.name;
+  candy.color = request.body.color;
+
+  candy.save(function(error) {
+    if(error) response.json({messsage: 'Could not ceate candy b/c:' + error});
+
+    response.redirect('/candies');
+  });  
+}
 
 // GET
 function getCandy(request, response) {
@@ -30,7 +50,7 @@ function updateCandy(request, response) {
       if(error) response.json({messsage: 'Could not update candy b/c:' + error});
 
       response.json({message: 'Candy successfully updated'});
-    });
+    });  
   });
 }
 
