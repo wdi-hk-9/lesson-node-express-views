@@ -14,16 +14,22 @@
   </h1>
 
   <div class="container">
-    <% candies.forEach(function(candy) { %>
-      <ul>
-        <li><b>Name : </b>  <%= candy.name %></li>
-        <li><b>Color : </b> <%= candy.color %></li>
-      </ul>
-    <% }) %>
+    <div class="row">
+      <% candies.forEach(function(candy) { %>
+        <div class="col-xs-4 well candy">
+          <div><b>Name : </b>  <%- link_to(candy.name, '/candies/'+ candy._id) %></div>
+          <div><b>Color : </b> <%= candy.color %></div>
+        </div>
+      <% }) %>
+    </div>
   </div>
 
   <div class="container">
     <% include candies/form %>
+  </div>
+
+  <div class="container">
+    <% include footer %>
   </div>
 </body>
 </html>

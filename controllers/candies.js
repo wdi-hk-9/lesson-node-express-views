@@ -27,7 +27,7 @@ function getCandy(request, response) {
   Candy.findById({_id: id}, function(error, candy) {
     if (error) response.json({message: 'Could not find candy b/c:' + error});
 
-    response.json({candy: candy});
+    response.render('partials/candies/update', {candy: candy});
   });
 }
 
@@ -37,13 +37,13 @@ function updateCandy(request, response) {
   Candy.findById({_id: id}, function(error, candy) {
     if (error) response.json({message: 'Could not find candy b/c:' + error});
 
-    if (request.body.name)  candy.name  = request.body.candy.name;
-    if (request.body.color) candy.color = request.body.candy.color;
+    if (request.body.candy.name)  candy.name  = request.body.candy.name;
+    if (request.body.candy.color) candy.color = request.body.candy.color;
 
     candy.save(function(error) {
       if (error) response.json({messsage: 'Could not update candy b/c:' + error});
 
-      response.json({message: 'Candy successfully updated'});
+      response.redirect('/candies')
     });
   });
 }
